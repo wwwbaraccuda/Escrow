@@ -1,0 +1,30 @@
+// SPDX-License-Identifier:MIT
+
+pragma solidity >0.7.0 <=0.9.0;
+
+contract EscrowII {
+
+    address manager;
+    address buyer;
+    address seller;
+    bool packageSent;
+
+    constructor(address _manager, address _buyer, address _seller) {
+        manager = _manager;
+        buyer = _buyer;
+        seller = _seller;
+        
+    }
+
+    function deposit() public payable {
+        require(msg.sender == buyer, "Buyer only");
+        buyer = payable(msg.sender);
+    }
+
+    function send() public returns(bool){
+        require(msg.sender == seller, "Seller only");
+        packageSent = true;
+        return packageSent;
+    }
+
+}
